@@ -1,8 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import {Visual} from '../components/Visual'
+import IntroBlurb from '../components/IntroBlurb.astro'
+import Link from '../components/Link.astro'
 
 ---
-<BaseLayout>
-		<Visual client:load/>
+<BaseLayout pageTitle="Nico Robo">
+	<div class="p-6 flex items-center justify-center flex-col max-w-[550px] mx-auto">
+		<div class="w-64 h-32 mb-5">
+			<Visual client:load/>
+		</div>
+		
+		
+		<h1 class="text-4xl font-extrabold">
+			Nick Roberts
+		</h1>
+		<h2 class=" text-xl mb-8 font-thin">
+			Full Stack Software Engineer
+		</h2>
+		<IntroBlurb emoji="💻">I've been building for the web since 2015, with an emphasis on full stack JavaScript apps using React and Node.</IntroBlurb>
+		<IntroBlurb emoji="👔">I most recently worked as a Senior Software Engineer at <Link url="https://labelbox.com/">Labelbox</Link>, building the latest AI/ML data annotation tools. I'm currently coming out of a year of traveling and am looking for my next role.</IntroBlurb>
+		<IntroBlurb emoji="🏞️">I occasionally curate and produce music as <Link url="https://soundcloud.com/nico_robo">Nico Robo</Link>. When away from my computer, I'm climbing in the mountains and desert.</IntroBlurb>
+		<div>
+			Socials
+		</div>
+	</div>
 </BaseLayout>

@@ -1,0 +1,18 @@
+---
+import NavLink from './NavLink.astro'
+---
+<div class="flex w-full sticky top-0 z-10 justify-center">
+    <nav class="navbar flex grow px-5 py-3 m-5 rounded-2xl justify-between items-center border border-gray-700 backdrop-blur-sm max-w-[1200px]">
+        <a href="/" class="bg-gradient-to-r from-fuchsia-300 to-blue-300 bg-clip-text text-transparent text-lg font-semibold">nicorobo</a>
+        <div class="flex text-gray-400 font-medium text-sm leading-loose gap-1 pr-2">
+            <NavLink title="About" url="/"/>
+            <NavLink title="Projects" url="/projects"/>
+            <NavLink title="Articles" url="/blog"/>
+        </div>
+    </nav>
+</div>
+<style>
+    .navbar {
+        background: linear-gradient(137deg, rgba(17, 18, 20, .75) 4.87%, rgba(12, 13, 15, .9) 75.88%)
+    }
+</style>

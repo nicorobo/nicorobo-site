@@ -6,41 +6,26 @@ import {
   type ThreeElements,
   useThree,
 } from '@react-three/fiber'
-import vertexShader from '../shaders/vertex.glsl'
-import fragmentShader from '../shaders/fragment.glsl'
 import { Bloom, EffectComposer } from '@react-three/postprocessing'
 
-type SphereProps = {
-  radius: number
+type CubeProps = {
+  size: number
+  timeOffset: number
 } & ThreeElements['mesh']
-function Sphere({ radius, ...meshProps }: SphereProps) {
-  const uniforms = useMemo(
-    () => ({
-      uTime: {
-        value: 0,
-      },
-    }),
-    []
-  )
-  const meshRef = useRef<THREE.Mesh>(null!)
-  const shaderRef = useRef<THREE.ShaderMaterial>(null!)
+function Cube({ size, timeOffset, ...meshProps }: CubeProps) {
   const { clock } = useThree()
+  const meshRef = useRef<THREE.Mesh>(null!)
   useFrame((state, delta) => {
     const elapsedTime = clock.getElapsedTime()
-    shaderRef.current.uniforms.uTime.value = elapsedTime
+    meshRef.current.rotation.x += delta * 0.67
+    meshRef.current.rotation.y -= delta * 0.23
+    meshRef.current.position.y =
+      Math.sin(elapsedTime + timeOffset) * 0.75 + meshProps?.position[1]
   })
   return (
     <mesh {...meshProps} ref={meshRef}>
-      <sphereGeometry args={[radius, 32, 32]} />
-      <shaderMaterial
-        ref={shaderRef}
-        blending={THREE.AdditiveBlending}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        transparent
-        wireframe
-      />
+      <boxGeometry args={[size, size, size, 10, 10, 10]} />
+      <meshNormalMaterial />
     </mesh>
   )
 }
@@ -68,17 +53,31 @@ function Sphere({ radius, ...meshProps }: SphereProps) {
 //   return null // Return your object/mesh here
 // }
 
+const CubeGroup = ({ scale = 1 }: { scale: number }) => {
+  const groupRef = useRef<THREE.Group>(null!)
+  // useFrame((state, delta) => {
+  //   groupRef.current.rotation.y -= delta * 0.23
+  // })
+  return (
+    <group ref={groupRef}>
+      <Cube size={scale * 0.3} timeOffset={10} position={[scale * -3, 0, 0]} />
+      <Cube size={scale * 0.5} timeOffset={11} position={[scale * -2, 0, 0]} />
+      <Cube size={scale * 0.8} timeOffset={12} position={[scale * -1, 0, 0]} />
+      <Cube size={scale} timeOffset={13} position={[scale * 0, 0, 0]} />
+      <Cube size={scale * 0.8} timeOffset={14} position={[scale * 1, 0, 0]} />
+      <Cube size={scale * 0.5} timeOffset={15} position={[scale * 2, 0, 0]} />
+      <Cube size={scale * 0.3} timeOffset={16} position={[scale * 3, 0, 0]} />
+    </group>
+  )
+}
 export const Visual = () => {
   const canvas = useRef<HTMLCanvasElement>(null)
   return (
-    <div style={{ height: 350, width: 350 }}>
-      <Canvas ref={canvas}>
-        <Sphere radius={3} position={[0, 0, 0]} />
-        <Sphere radius={1} position={[0, 0, 0]} />
-        <EffectComposer>
-          <Bloom luminanceThreshold={0} luminanceSmoothing={0.6} height={400} />
-        </EffectComposer>
-      </Canvas>
-    </div>
+    <Canvas ref={canvas}>
+      <CubeGroup scale={2} />
+      <EffectComposer>
+        <Bloom luminanceThreshold={0} luminanceSmoothing={1} height={200} />
+      </EffectComposer>
+    </Canvas>
   )
 }

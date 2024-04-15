@@ -2,6 +2,7 @@
 // import Header from '../components/Header.astro';
 // import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import Nav from '../components/Nav.astro'
 const {pageTitle} = Astro.props;
 ---
 <html lang="en">
@@ -13,8 +14,15 @@ const {pageTitle} = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
-    <!-- <Header /> -->
-    <h1>{pageTitle}</h1>
+    <div class="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
+      <div class="w-[108rem] flex-none flex justify-end">
+        <picture>
+          <source srcset="https://tailwindcss.com/_next/static/media/docs-dark@30.1a9f8cbf.avif" type="image/avif">
+          <img src="https://tailwindcss.com/_next/static/media/docs@tinypng.d9e4dcdc.png" alt="" class="w-[71.75rem] flex-none max-w-none" decoding="async">
+        </picture>
+      </div>
+    </div>
+    <Nav/>
     <slot/>
     <!-- <Footer /> -->
     <!-- <script>

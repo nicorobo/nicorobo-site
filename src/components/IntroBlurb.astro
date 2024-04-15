@@ -1,0 +1,7 @@
+---
+const {emoji} = Astro.props;
+---
+<div class="intro-blurb flex gap-4 mb-8">
+    <div class="emoji text-3xl mt-1">{emoji}</div>
+    <div class=""><slot/></div>
+</div>

@@ -1,0 +1,6 @@
+---
+
+const currentUrl = Astro.url.pathname;
+const {title, url} = Astro.props;
+---
+<a class={'hover:text-gray-200 transition-colors  px-3 py-2 rounded-md' + (currentUrl == url ? '  bg-slate-600/20' : '')} href={url}>{title}</a>
