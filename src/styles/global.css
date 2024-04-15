@@ -1,4 +1,6 @@
 body {
+  font-family: Avenir, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   background-color: #1d1f2a;
   color: white;
 }
